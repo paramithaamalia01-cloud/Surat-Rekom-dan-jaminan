@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+/* Theme: Artisan Sage Green, Warm Terracotta & Oatmeal Cream */
+:root {
+  --theme-cream: #FAF7F2;
+  --theme-sand: #F2EDE4;
+  --theme-sage-900: #1F362A;
+  --theme-sage-800: #274434;
+  --theme-sage-700: #3D604C;
+  --theme-sage-600: #557A64;
+  --theme-sage-400: #88A995;
+  --theme-sage-200: #C5D8CC;
+  --theme-sage-100: #E4ECE6;
+  --theme-sage-50: #F2F6F3;
+  --theme-terracotta: #D96B38;
+  --theme-terracotta-hover: #C25B2A;
+  --theme-terracotta-dark: #9E4318;
+}
+
+body {
+  background-color: #FAF7F2;
+  color: #1F362A;
+}
+
+/* Formal Indonesian Official Consular Font: Times New Roman */
+.font-formal,
+#official-letter-to-print,
+.official-letter-page,
+.official-letter-page * {
+  font-family: "Times New Roman", Times, "Liberation Serif", serif !important;
+}
+
+/* Force standard sRGB colors and disable box-shadow on printable letter to prevent html2canvas oklab error */
+#official-letter-to-print {
+  --color-slate-950: #020617;
+  --color-slate-900: #0f172a;
+  --color-slate-800: #1e293b;
+  --color-slate-700: #334155;
+  --color-slate-600: #475569;
+  --color-slate-500: #64748b;
+  --color-slate-400: #94a3b8;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f1f5f9;
+  --color-slate-50: #f8fafc;
+  --color-emerald-950: #022c22;
+  --color-emerald-900: #064e3b;
+  --color-emerald-800: #065f46;
+  --color-emerald-700: #047857;
+  --color-emerald-600: #059669;
+  --color-emerald-50: #ecfdf5;
+  --color-blue-700: #1d4ed8;
+  --color-indigo-700: #4338ca;
+  --color-indigo-800: #3730a3;
+  color: #0f172a;
+}
+
+/* Warna resmi kop surat Alzam */
+.text-kop-tagline {
+  color: #0d5526 !important;
+}
+
+.text-kop-link {
+  color: #1d4ed8 !important;
+}
+
+
+
+#official-letter-to-print,
+#official-letter-to-print *,
+.official-letter-page,
+.official-letter-page * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* Rata Kanan dan Kiri (Justified) untuk teks resmi tanpa pemotongan suku kata */
+.text-justify-formal {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+  -webkit-hyphens: none !important;
+  -ms-hyphens: none !important;
+  hyphens: none !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  white-space: normal !important;
+}
+
+/* Standar Spasi 1.15 (line-height: 1.20) untuk 4 poin jaminan yang rapat & padat */
+.leading-spasi-1-15,
+.leading-spasi-1\.15,
+.leading-spasi-1 {
+  line-height: 1.20 !important;
+}
+
+/* Standar Spasi 1.5 (1.5 Line Spacing) untuk paragraf dan tabel data resmi */
+.leading-spasi-1-5,
+.leading-spasi-1\.5 {
+  line-height: 1.5 !important;
+}
+
+/* Mobile Touch & Input Optimizations */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS */
+    touch-action: manipulation;
+  }
+}
+
+/* Inline Editable Document Inputs */
+.doc-inline-input {
+  background-color: rgba(240, 253, 244, 0.6);
+  border-bottom: 1.5px dashed #059669;
+  border-radius: 4px;
+  padding: 1px 4px;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  width: 100%;
+  transition: all 0.15s ease;
+}
+
+.doc-inline-input:focus {
+  background-color: #ffffff;
+  border-bottom: 2px solid #059669;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+/* Official Document Print Styles */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide UI elements during print */
+  header,
+  nav,
+  button,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Standar Resmi: Margin Halaman Kiri 2.5cm & Kanan 2.5cm, Atas 2.0cm & Bawah 2.0cm */
+  @page {
+    size: A4 portrait;
+    margin: 2.0cm 2.5cm 2.0cm 2.5cm;
+  }
+
+  .official-letter-page {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    min-height: auto !important;
+    background: transparent !important;
+  }
+}
+

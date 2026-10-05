@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidUser(data) {
+      return data.userId is string && data.userId == request.auth.uid &&
+             data.email is string && data.email.size() <= 256;
+    }
+
+    function isValidLetter(data) {
+      return data.id is string && data.id.size() <= 128 &&
+             data.userId is string && data.userId == request.auth.uid &&
+             data.namaLengkap is string && data.namaLengkap.size() <= 256 &&
+             data.nik is string && data.nik.size() <= 32 &&
+             data.nomorSurat is string && data.nomorSurat.size() <= 128;
+    }
+
+    // User profiles
+    match /users/{userId} {
+      allow get: if isSignedIn() && isValidId(userId) && request.auth.uid == userId;
+      allow create: if isSignedIn() && isValidId(userId) && request.auth.uid == userId && isValidUser(incoming());
+      allow update: if isSignedIn() && isValidId(userId) && request.auth.uid == userId && isValidUser(incoming());
+      allow delete: if false;
+    }
+
+    // Letter records collection
+    match /letters/{letterId} {
+      allow get: if isSignedIn() && isValidId(letterId) && resource.data.userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && isValidId(letterId) && incoming().userId == request.auth.uid && isValidLetter(incoming());
+      allow update: if isSignedIn() && isValidId(letterId) && existing().userId == request.auth.uid && incoming().userId == request.auth.uid && isValidLetter(incoming());
+      allow delete: if isSignedIn() && isValidId(letterId) && existing().userId == request.auth.uid;
+    }
+  }
+}

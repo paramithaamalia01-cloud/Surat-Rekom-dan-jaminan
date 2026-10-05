@@ -1,0 +1,7 @@
+{
+  "name": "Sistem Rekomendasi Paspor & Visa PT Cahaya Global Travelindo",
+  "description": "Aplikasi ekstraksi identitas KTP & KK berbasis AI dan generator Surat Rekomendasi Paspor / Visa resmi untuk biro perjalanan PT Cahaya Global Travelindo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
